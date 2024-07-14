@@ -32,8 +32,13 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
-        return new ResponseEntity<>(userService.updateUser(userDto), HttpStatus.OK);
+    public ResponseEntity<Object> updateUser(@RequestBody UserDto userDto) {
+        try {
+            return new ResponseEntity<>(userService.updateUser(userDto), HttpStatus.OK);
+
+        } catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping(value = "{id}")

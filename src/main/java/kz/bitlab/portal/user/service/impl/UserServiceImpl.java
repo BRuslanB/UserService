@@ -1,6 +1,7 @@
 package kz.bitlab.portal.user.service.impl;
 
 import kz.bitlab.portal.user.dto.UserDto;
+import kz.bitlab.portal.user.exeption.UserNotFoundException;
 import kz.bitlab.portal.user.mapper.UserMapper;
 import kz.bitlab.portal.user.repository.UserRepository;
 import kz.bitlab.portal.user.service.UserService;
@@ -28,8 +29,13 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(userRepository.save(userMapper.toEntity(userDto)));
     }
 
-    public UserDto updateUser(UserDto userDTO) {
-        return userMapper.toDto(userRepository.save(userMapper.toEntity(userDTO)));
+    public UserDto updateUser(UserDto userDto) {
+
+        if (getUser(userDto.getId()) != null) {
+            return userMapper.toDto(userRepository.save(userMapper.toEntity(userDto)));
+        } else {
+            throw new UserNotFoundException(userDto.getId());
+        }
     }
 
     public void deleteUser(Long id) {
