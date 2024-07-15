@@ -10,7 +10,7 @@ services:
     ports:
       - '5442:5432'
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ./db-user-data/postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 30s
@@ -26,5 +26,8 @@ services:
         condition: service_healthy
     environment:
       - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_postgres:5432/user_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
     ports:
       - '8080:8080'

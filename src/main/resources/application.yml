@@ -6,8 +6,7 @@ spring:
     name: UserService
 
   datasource:
-#    url: jdbc:postgresql://localhost:5432/user_db
-    url: jdbc:postgresql://db_postgres:5432/user_db
+    url: jdbc:postgresql://localhost:5432/user_db
     username: postgres
     password: postgres
 
